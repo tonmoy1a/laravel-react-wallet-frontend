@@ -5,7 +5,10 @@ import AuthService from "../services/AuthService";
 import WalletService from "../services/WalletService";
 const WalletComponant = () => {
 
-    const [userWallet, setUserWallet] = useState({});
+    const [userWallet, setUserWallet] = useState({
+        currency_price:0,
+        third_hightest_amount:0
+    });
     const [userWalletTrensction, setUserWalletTrensction] = useState([]);
     const [user, setUser] = useState(AuthService.getLogedUser())
 
@@ -51,6 +54,7 @@ const WalletComponant = () => {
                         <tr>
                         <th>#</th>
                         <th>Details</th>
+                        <th>Note</th>
                         <th>Trensection Time</th>
                         </tr>
                     </thead>
@@ -58,7 +62,7 @@ const WalletComponant = () => {
                         {userWalletTrensction.map((val,key) => (
                             <tr key={key}>
                                 <td>{val.id}</td>
-                                {val.from_wallet_id===parseInt(user.userId) ? 
+                                {val.from_wallet.user_id===parseInt(user.userId) ? 
                                 <td className="text-danger">
                                     Money Sent. Amount {val.amount*userWallet.currency_price} {userWallet.currency}
                                 </td>
@@ -67,7 +71,9 @@ const WalletComponant = () => {
                                     Money Received. Amount {val.amount*userWallet.currency_price} {userWallet.currency}
                                 </td>
                                 }
-                                
+                                <td>
+                                    {val.note}
+                                </td>
                                 <td>
                                     <Moment date={val.created_at} format="DD, MMM YYYY | HH:mm:ss"/>
                                 </td>

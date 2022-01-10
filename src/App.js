@@ -17,6 +17,7 @@ function App() {
           {!AuthService.isLoggedIn() &&
               <Redirect to={{pathname: 'login'}}/>
           }
+          <Redirect to={{pathname: 'login'}}/>
       </BrowserRouter>
   );
 }
